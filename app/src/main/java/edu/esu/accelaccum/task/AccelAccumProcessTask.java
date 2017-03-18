@@ -12,10 +12,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import edu.esu.accelaccum.LocationBundle;
+import edu.esu.accelaccum.model.LocationBundle;
+import edu.esu.accelaccum.model.MapPoint;
 import edu.esu.accelaccum.module.LocationModule;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -51,13 +53,14 @@ public class AccelAccumProcessTask extends AsyncTask<LocationBundle, Void, LatLn
         //map.addMarker(new MarkerOptions().position(updatedLatLng));
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
-
-        new Timestamp(System.currentTimeMillis());
+        MapPoint mapPoint = new MapPoint();
+        mapPoint.setLatLng(updatedLatLng);
+        mapPoint.setTimeStamp(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis())));
         //myRef.child("locations").child(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()))).setValue(updatedLatLng);
-        myRef.child("locations").child(String.valueOf(new Timestamp(System.currentTimeMillis()).getTime())).setValue(updatedLatLng);
+        myRef.child("locations").child(String.valueOf(new Timestamp(System.currentTimeMillis()).getTime())).setValue(mapPoint);
 
         //locationModule.start();
-        map.addPolyline((new PolylineOptions()).add(updatedLatLng).width(20).color(Color.BLUE).geodesic(false));
+        //map.addPolyline((new PolylineOptions()).add(updatedLatLng).width(20).color(Color.BLUE).geodesic(false));
 
     }
 

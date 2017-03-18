@@ -1,4 +1,4 @@
-package edu.esu.accelaccum;
+package edu.esu.accelaccum.model;
 
 import android.location.Location;
 
@@ -10,6 +10,7 @@ import java.util.List;
 public class LocationBundle {
     private Location location;
     private float[] accelerometerDataValues;
+    private String timeStamp;
 
     public Location getLocation() {
         return location;
@@ -25,5 +26,13 @@ public class LocationBundle {
 
     public void setAccelerometerData(float[] accelerometerDataValues) {
         this.accelerometerDataValues = accelerometerDataValues;
+    }
+
+    public String getTmestamp() {
+        return timeStamp;
+    }
+
+    public void setTimestamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

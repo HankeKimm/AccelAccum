@@ -21,7 +21,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.GoogleMap;
 
 import edu.esu.accelaccum.task.AccelAccumProcessTask;
-import edu.esu.accelaccum.LocationBundle;
+import edu.esu.accelaccum.model.LocationBundle;
 import edu.esu.accelaccum.R;
 
 /**
