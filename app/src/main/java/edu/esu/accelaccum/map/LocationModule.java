@@ -1,4 +1,4 @@
-package edu.esu.accelaccum.module;
+package edu.esu.accelaccum.map;
 
 import android.app.Activity;
 
@@ -15,31 +15,30 @@ import android.content.Context;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap;
 
-import edu.esu.accelaccum.task.AccelAccumProcessTask;
 import edu.esu.accelaccum.model.LocationBundle;
-import edu.esu.accelaccum.R;
 
 /**
  * Created by hanke.kimm on 12/30/16.
  */
+//TODO: Turn Location Module to a singleton
 public class LocationModule implements LocationListener {
 
     private LocationManager locationManager;
     private GoogleMap map;
     private Activity mapActivity;
-    private ToggleButton toggleButton;
     private AccelerometerModule accelerometerModule;
     private LocationBundle[] locationBundleArray;
+    private Handler mapHandler;
+    private MapRunnable mapRunnable;
 
     private final int dataPointBuffer = 5;
     private int dataPointCounter = 0;
     private final int locationTimeInterval = 500;
-    private final float locationDistanceInterval = 0f;
+    private final float locationDistanceInterval = 0.5f;
 
     private class AccelerometerModule extends Thread implements SensorEventListener {
 
@@ -87,6 +86,8 @@ public class LocationModule implements LocationListener {
         this.mapActivity = (Activity) context;
         this.map = map;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        mapHandler = new Handler();
+        mapRunnable = new MapRunnable(map);
     }
 
     public boolean isEnabled() {
@@ -122,7 +123,10 @@ public class LocationModule implements LocationListener {
             dataPointCounter = 0;
             LocationBundle[] processArray = locationBundleArray.clone();
             stop();
-            new AccelAccumProcessTask(this, mapActivity, map).execute(processArray);
+            //new Handler().post(new MapRunnable());
+            //new AccelAccumProcessTask(this, mapActivity, map).execute(processArray);
+            mapRunnable.setLocationArray(processArray);
+            mapHandler.post(mapRunnable);
             start();
         }
     }

@@ -1,4 +1,4 @@
-package edu.esu.accelaccum;
+package edu.esu.accelaccum.map;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -16,7 +16,8 @@ import android.support.v4.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import edu.esu.accelaccum.module.LocationModule;
+
+import edu.esu.accelaccum.R;
 
 public class AccelAccumMap extends FragmentActivity implements OnMapReadyCallback {
 
