@@ -2,21 +2,23 @@ package edu.esu.accelaccum.model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 /**
  * Created by hanke.kimm on 12/30/16.
  */
 public class LocationBundle {
-    private Location location;
+    private LatLng latLng;
     private float[] accelerometerDataValues;
 
-    public Location getLocation() {
-        return location;
+    public LatLng getLatLng() {
+        return latLng;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
     }
 
     public float[] getAccelerometerData() {

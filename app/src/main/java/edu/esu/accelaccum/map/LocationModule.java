@@ -18,8 +18,10 @@ import android.os.Looper;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import edu.esu.accelaccum.model.LocationBundle;
+import edu.esu.accelaccum.util.AccelAccumUtil;
 
 /**
  * Created by hanke.kimm on 12/30/16.
@@ -106,7 +108,7 @@ public class LocationModule implements LocationListener {
     public void stop() throws SecurityException {
         locationManager.removeUpdates(this);
         accelerometerModule.quit();
-        locationBundleArray = null;
+        //locationBundleArray = null;
         accelerometerModule = null;
     }
 
@@ -114,18 +116,22 @@ public class LocationModule implements LocationListener {
     public void onLocationChanged(Location location) throws SecurityException {
         if(locationBundleArray[dataPointBuffer - 1] == null) {
             LocationBundle locationBundle = new LocationBundle();
-            locationBundle.setLocation(location);
-            locationBundle.setAccelerometerData(null);
+            locationBundle.setLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
+            float[] valuesArray = new float[] {0.0f, 0.0f, 9.8f};
+            float[] sensorArray = accelerometerModule.getAccelerometerValues();
+            valuesArray[0] = sensorArray[0];
+            valuesArray[1] = sensorArray[1];
+            valuesArray[2] = sensorArray[2];
+            locationBundle.setAccelerometerData(valuesArray);
             locationBundleArray[dataPointCounter] = locationBundle;
-            locationBundleArray[dataPointCounter].setAccelerometerData(accelerometerModule.getAccelerometerValues());
+            //locationBundleArray[dataPointCounter].setAccelerometerData(accelerometerModule.getAccelerometerValues());
             dataPointCounter++;
         } else {
             dataPointCounter = 0;
-            LocationBundle[] processArray = locationBundleArray.clone();
             stop();
+            //LocationBundle[] processArray = AccelAccumUtil.copyArray(locationBundleArray);
             //new Handler().post(new MapRunnable());
-            //new AccelAccumProcessTask(this, mapActivity, map).execute(processArray);
-            mapRunnable.setLocationArray(processArray);
+            mapRunnable.setLocationArray(locationBundleArray);
             mapHandler.post(mapRunnable);
             start();
         }

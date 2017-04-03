@@ -55,9 +55,6 @@ public class MapRunnable implements Runnable  {
         mapPoint.setTimeStamp(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis())));
         saveMapPoint(mapPoint);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapPoint.getLatLng(), 20.0f));
-        //map.addMarker(new MarkerOptions().position(updatedLatLng));
-
-        //locationModule.start();
         map.addPolyline(mapPolyLineOptions.add((previousMapPoint == null) ? mapPoint.getLatLng() : previousMapPoint.getLatLng(), mapPoint.getLatLng()));
         previousMapPoint = mapPoint;
     }
@@ -108,10 +105,10 @@ public class MapRunnable implements Runnable  {
     }
 
     private double calculateUpdatedLongitude(LocationBundle[] locationBundleArray, int calculationType) {
-        double comparedLongitudeValue = locationBundleArray[0].getLocation().getLongitude();
+        double comparedLongitudeValue = locationBundleArray[0].getLatLng().longitude;
         if(calculationType == CALCULATE_MAXIMUM) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                double currentLongitudeValue = locationBundleArray[bundleIndex].getLocation().getLongitude();
+                double currentLongitudeValue = locationBundleArray[bundleIndex].getLatLng().longitude;
                 if (currentLongitudeValue > comparedLongitudeValue) {
                     comparedLongitudeValue = currentLongitudeValue;
                 }
@@ -119,7 +116,7 @@ public class MapRunnable implements Runnable  {
         }
         else if(calculationType == CALCULATE_MINIMUM) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                double currentLongitudeValue = locationBundleArray[bundleIndex].getLocation().getLongitude();
+                double currentLongitudeValue = locationBundleArray[bundleIndex].getLatLng().longitude;
                 if (currentLongitudeValue < comparedLongitudeValue) {
                     comparedLongitudeValue = currentLongitudeValue;
                 }
@@ -127,7 +124,7 @@ public class MapRunnable implements Runnable  {
         }
         else if(calculationType == CALCULATE_AVERAGE) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                comparedLongitudeValue += locationBundleArray[bundleIndex].getLocation().getLongitude();
+                comparedLongitudeValue += locationBundleArray[bundleIndex].getLatLng().longitude;
             }
             comparedLongitudeValue = comparedLongitudeValue / locationBundleArray.length;
         }
@@ -135,10 +132,10 @@ public class MapRunnable implements Runnable  {
     }
 
     private double calculateUpdatedLatitude(LocationBundle[] locationBundleArray, int calculationType) {
-        double comparedLatitudeValue = locationBundleArray[0].getLocation().getLatitude();
+        double comparedLatitudeValue = locationBundleArray[0].getLatLng().latitude;
         if(calculationType == CALCULATE_MAXIMUM) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                double currentLatitudeValue = locationBundleArray[bundleIndex].getLocation().getLatitude();
+                double currentLatitudeValue = locationBundleArray[bundleIndex].getLatLng().latitude;
                 if (currentLatitudeValue > comparedLatitudeValue) {
                     comparedLatitudeValue = currentLatitudeValue;
                 }
@@ -146,7 +143,7 @@ public class MapRunnable implements Runnable  {
         }
         else if(calculationType == CALCULATE_MINIMUM) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                double currentLatitudeValue = locationBundleArray[bundleIndex].getLocation().getLatitude();
+                double currentLatitudeValue = locationBundleArray[bundleIndex].getLatLng().latitude;
                 if (currentLatitudeValue < comparedLatitudeValue) {
                     comparedLatitudeValue = currentLatitudeValue;
                 }
@@ -154,7 +151,7 @@ public class MapRunnable implements Runnable  {
         }
         else if(calculationType == CALCULATE_AVERAGE) {
             for (int bundleIndex = 1; bundleIndex < locationBundleArray.length; bundleIndex++) {
-                comparedLatitudeValue += locationBundleArray[bundleIndex].getLocation().getLatitude();
+                comparedLatitudeValue += locationBundleArray[bundleIndex].getLatLng().latitude;
             }
             comparedLatitudeValue = comparedLatitudeValue / locationBundleArray.length;
         }
