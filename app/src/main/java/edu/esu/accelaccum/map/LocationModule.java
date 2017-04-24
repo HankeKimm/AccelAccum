@@ -117,8 +117,11 @@ public class LocationModule implements LocationListener {
         if(locationBundleArray[dataPointBuffer - 1] == null) {
             LocationBundle locationBundle = new LocationBundle();
             locationBundle.setLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
-            float[] valuesArray = new float[] {0.0f, 0.0f, 9.8f};
+            float[] valuesArray = new float[3];
             float[] sensorArray = accelerometerModule.getAccelerometerValues();
+            if (sensorArray == null) {
+                sensorArray = new float[] {0.0f, 0.0f, 9.8f};
+            }
             valuesArray[0] = sensorArray[0];
             valuesArray[1] = sensorArray[1];
             valuesArray[2] = sensorArray[2];
