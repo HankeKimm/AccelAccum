@@ -29,7 +29,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".map.AccelAccumMap"
+            android:name=".activity.AccelAccumMap"
             android:label="@string/title_activity_accel_accum_map">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AccelAccumObserverMapActivity"></activity>
     </application>
 
 </manifest>

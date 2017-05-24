@@ -15,13 +15,12 @@ import android.content.Context;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
+import edu.esu.accelaccum.map.MapRunnable;
 import edu.esu.accelaccum.model.LocationBundle;
-import edu.esu.accelaccum.util.AccelAccumUtil;
 
 /**
  * Created by hanke.kimm on 12/30/16.
@@ -98,7 +97,7 @@ public class LocationModule implements LocationListener {
 
     public void start() throws SecurityException {
         locationBundleArray = new LocationBundle[dataPointBuffer];
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationTimeInterval, locationDistanceInterval, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locationTimeInterval, locationDistanceInterval, this);
         if (accelerometerModule == null) {
             accelerometerModule = new AccelerometerModule(mapActivity);
         }

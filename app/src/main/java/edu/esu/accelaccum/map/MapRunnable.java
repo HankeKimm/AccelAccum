@@ -1,7 +1,6 @@
 package edu.esu.accelaccum.map;
 
 
-import android.app.Activity;
 import android.graphics.Color;
 
 import com.google.android.gms.maps.CameraUpdateFactory;

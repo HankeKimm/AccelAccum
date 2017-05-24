@@ -10,20 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="edu.esu.accelaccum.AccelAccumMap">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Hanke"
-            android:id="@+id/testView"
-            android:layout_gravity="center|bottom" />
         <ToggleButton
             android:layout_width="300px"
             android:layout_height="100px"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="46dp"
-            android:text="Track Toggle"
-            android:id="@+id/trackToggle" />
+            android:text="Observe"
+            android:id="@+id/observeButton" />
     </fragment>
     <ListView android:id="@+id/left_drawer"
         android:layout_width="240dp"

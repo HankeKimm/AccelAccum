@@ -27,3 +27,5 @@ public class MapPoint {
         this.latLng = latLng;
     }
 }
+
+
