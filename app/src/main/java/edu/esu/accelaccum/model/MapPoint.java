@@ -10,6 +10,7 @@ public class MapPoint {
 
     private LatLng latLng;
     private String timeStamp;
+    private int pointCount;
 
     public String getTimeStamp() {
         return timeStamp;
@@ -25,6 +26,14 @@ public class MapPoint {
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
+    }
+
+    public int getPointCount() {
+        return pointCount;
+    }
+
+    public void setPointCount(int pointCount) {
+        this.pointCount = pointCount;
     }
 }
 

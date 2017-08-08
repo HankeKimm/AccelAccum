@@ -29,6 +29,8 @@ public class MapRunnable implements Runnable  {
     private PolylineOptions mapPolyLineOptions;
     private MapPoint previousMapPoint;
 
+    private int dataPointCount;
+
     private final float x_max_value = 2.5974f;
     private final float y_max_value = 3.1578f;
 
@@ -43,6 +45,7 @@ public class MapRunnable implements Runnable  {
         this.mapPolyLineOptions = new PolylineOptions().width(20).color(Color.BLUE).geodesic(false);
         this.dbReference = FirebaseUtil.getFirebaseDatabaseReference().child(locationDbName);
         this.previousMapPoint = null;
+        this.dataPointCount = 0;
     }
 
     public void run() {
@@ -52,6 +55,11 @@ public class MapRunnable implements Runnable  {
         MapPoint mapPoint = new MapPoint();
         mapPoint.setLatLng(accelAccumProcess());
         mapPoint.setTimeStamp(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis())));
+        mapPoint.setPointCount(++dataPointCount);
+        if(dataPointCount % 12 == 0) {
+            //calculate the lat and long distance and show a different color on the map.
+            
+        }
         saveMapPoint(mapPoint);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapPoint.getLatLng(), 20.0f));
         map.addPolyline(mapPolyLineOptions.add((previousMapPoint == null) ? mapPoint.getLatLng() : previousMapPoint.getLatLng(), mapPoint.getLatLng()));

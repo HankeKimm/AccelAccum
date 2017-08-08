@@ -131,8 +131,6 @@ public class LocationModule implements LocationListener {
         } else {
             dataPointCounter = 0;
             stop();
-            //LocationBundle[] processArray = AccelAccumUtil.copyArray(locationBundleArray);
-            //new Handler().post(new MapRunnable());
             mapRunnable.setLocationArray(locationBundleArray);
             mapHandler.post(mapRunnable);
             start();
